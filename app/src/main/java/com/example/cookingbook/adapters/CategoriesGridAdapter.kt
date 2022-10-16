@@ -1,7 +1,6 @@
 package com.example.cookingbook.adapters
 
 
-import android.R
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cookingbook.R
 import com.example.cookingbook.pojo.Category
 
 
@@ -38,7 +38,7 @@ class CategoriesGridAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        private val ivIcon: ImageView
+        val ivIcon: ImageView
         val tvCaption: TextView
         override fun onClick(v: View) {
             categoryClickListener.onClick(categories[adapterPosition])

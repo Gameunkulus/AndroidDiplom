@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteStatement
 import android.graphics.Bitmap
 import android.util.Log
-import com.cookbook.helpers.BitmapHelper
+import com.example.cookingbook.helper.BitmapHelper
+import com.example.cookingbook.pojo.Category
 
 
 open class DBHelper(context: Context?) :
@@ -53,6 +54,7 @@ open class DBHelper(context: Context?) :
         // Названия таблиц
         @JvmStatic
         protected const val TABLE_CATEGORIES = "Categories"
+        @JvmStatic
         protected const val TABLE_INGREDIENTS = "Ingredients"
         @JvmStatic
         protected const val TABLE_RECIPES = "Recipes"
@@ -64,14 +66,16 @@ open class DBHelper(context: Context?) :
         // Заголовки полей таблиц
         @JvmStatic
         protected const val   //Категории
-                CATEGORY_ID = "cat_id"
+        CATEGORY_ID = "cat_id"
         @JvmStatic
         protected const val CATEGORY_CAPTION = "caption"
         @JvmStatic
         protected const val CATEGORY_ICON = "icon"
 
         //Ингредиенты
+        @JvmStatic
         protected const val ING_ID = "ing_id"
+        @JvmStatic
         protected const val ING_CAPTION = "ing_caption"
 
         //Рецепты
@@ -94,6 +98,7 @@ open class DBHelper(context: Context?) :
         protected const val IR_ING_ID = "ir_ing_id"
         @JvmStatic
         protected const val IR_REC_ID = "ir_rec_id"
+        @JvmStatic
         protected const val IR_QUANTITY = "ir_quantity"
 
         //Список покупок
@@ -130,7 +135,10 @@ open class DBHelper(context: Context?) :
         protected const val CREATE_SHOP_LIST_TABLE = ("create table " + TABLE_SHOP_LIST + " ("
                 + SHOP_LIST_NAME + " varchar(255) PRIMARY KEY );")
         @JvmStatic
-        protected const val LOG_TAG = "dbCookbook"
+        const val LOG_TAG = "dbCookbook"
         const val DB_NAME = "CookBook"
     }
+
+    open fun addOrUpdate(categories: List<Category?>?) {}
+    open fun addOrUpdate(c: Category?) {}
 }

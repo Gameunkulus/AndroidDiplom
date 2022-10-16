@@ -2,6 +2,8 @@ package com.example.cookingbook.adapters
 
 
 import android.R
+import android.R.id.*
+import android.R.layout.*
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.cookbook.pojo.Recipe
 import com.example.cookingbook.pojo.Recipe
 import java.lang.String
 
@@ -39,11 +40,11 @@ class RecipeListAdapter(
         return recipes.size
     }
 
-    internal inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        private val ivIcon: ImageView
-        private val tvCaption: TextView
-        private val tvCookingTime: TextView
+        val ivIcon: ImageView
+        val tvCaption: TextView
+        val tvCookingTime: TextView
         override fun onClick(v: View) {
             recipeClickListener.onClick(recipes[adapterPosition])
         }

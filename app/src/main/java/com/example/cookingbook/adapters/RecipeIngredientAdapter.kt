@@ -1,6 +1,9 @@
 package com.example.cookingbook.adapters
 
 import android.R
+import android.R.id.*
+import android.R.layout.*
+import android.R.drawable.*
 import android.content.Context
 import android.util.Pair
 import android.view.LayoutInflater
@@ -38,11 +41,11 @@ class RecipeIngredientAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val caption: String = ingredients[position].first.caption
+        val caption: String? = ingredients[position].first.caption
         val quantity = ingredients[position].second
         holder.tvCaption.text = caption
         holder.tvQuantity.text = quantity
-        if (!inShopList.contains(caption.lowercase(Locale.getDefault()))) {
+        if (!inShopList.contains(caption!!.lowercase(Locale.getDefault()))) {
             holder.btnAddToShopList.setImageResource(R.drawable.ic_add_to_shop_list)
         } else {
             holder.btnAddToShopList.setImageResource(R.drawable.ic_in_shop_list)
@@ -58,11 +61,11 @@ class RecipeIngredientAdapter(
         notifyDataSetChanged()
     }
 
-    internal inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        private val tvCaption: TextView
-        private val tvQuantity: TextView
-        private val btnAddToShopList: ImageButton
+        val tvCaption: TextView
+        val tvQuantity: TextView
+        val btnAddToShopList: ImageButton
         override fun onClick(v: View) {
             listener.onClick(ingredients[adapterPosition].first)
             notifyItemChanged(adapterPosition)

@@ -2,12 +2,13 @@ package com.example.cookingbook.adapters
 
 
 import android.R
+import android.R.id.*
+import android.R.layout.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.cookbook.ButtonRemoveClickListener
 import com.example.cookingbook.ButtonRemoveClickListener
 
 
@@ -46,7 +47,7 @@ class ShopListAdapter(private val lines: MutableList<String>, listener: ButtonRe
         return lines[position]
     }
 
-    internal inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvCaption: TextView
 
         init {

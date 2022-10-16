@@ -1,14 +1,15 @@
 package com.example.cookingbook.dao
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
 import android.util.Pair
 import androidx.core.content.PackageManagerCompat
-import com.cookbook.pojo.IngRecPair
-import com.cookbook.pojo.Ingredient
+import com.example.cookingbook.pojo.IngRecPair
+import com.example.cookingbook.pojo.Ingredient
 import java.util.*
 
 
@@ -70,6 +71,7 @@ class DBIngredientsHelper(context: Context?) : DBHelper(context) {
         })
     }
 
+    @SuppressLint("RestrictedApi")
     fun addOrReplace(ingredients: List<Ingredient?>?) {
         if (ingredients == null) return
         val db: SQLiteDatabase = getWritableDatabase()
@@ -79,8 +81,10 @@ class DBIngredientsHelper(context: Context?) : DBHelper(context) {
             db.beginTransaction()
             for (i in ingredients) {
                 statement.clearBindings()
-                statement.bindLong(1, i.id)
-                statement.bindString(2, i.caption.toLowerCase())
+                if (i != null) {
+                    statement.bindLong(1, i.id)
+                    statement.bindString(2, i.caption)
+                }
                 statement.execute()
             }
             db.setTransactionSuccessful()
@@ -92,6 +96,7 @@ class DBIngredientsHelper(context: Context?) : DBHelper(context) {
         }
     }
 
+    @SuppressLint("RestrictedApi")
     fun addOrReplacePairs(pairs: List<IngRecPair?>?) {
         if (pairs == null) return
         val db: SQLiteDatabase = getWritableDatabase()
@@ -101,10 +106,12 @@ class DBIngredientsHelper(context: Context?) : DBHelper(context) {
             db.beginTransaction()
             for (p in pairs) {
                 statement.clearBindings()
-                statement.bindLong(1, p.id)
-                statement.bindLong(2, p.ingId)
-                statement.bindLong(3, p.recId)
-                statement.bindString(4, p.quantity)
+                if (p != null) {
+                    statement.bindLong(1, p.id)
+                    statement.bindLong(2, p.ingId)
+                    statement.bindLong(3, p.recId)
+                    statement.bindString(4, p.quantity)
+                }
                 statement.execute()
             }
             db.setTransactionSuccessful()
@@ -116,6 +123,7 @@ class DBIngredientsHelper(context: Context?) : DBHelper(context) {
         }
     }
 
+    @SuppressLint("Range", "RestrictedApi")
     private fun bindPairs(c: Cursor, pairs: ArrayList<Pair<Ingredient, String>>) {
         try {
             if (c.moveToFirst()) {
@@ -133,6 +141,7 @@ class DBIngredientsHelper(context: Context?) : DBHelper(context) {
         }
     }
 
+    @SuppressLint("Range", "RestrictedApi")
     private fun bindIng(c: Cursor, ingredients: ArrayList<Ingredient>) {
         try {
             if (c.moveToFirst()) {

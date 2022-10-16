@@ -9,7 +9,7 @@ import com.example.cookingbook.pojo.Category
 
 
 class DBCategoriesHelper(context: Context?) : DBHelper(context) {
-    fun addOrUpdate(categories: List<Category?>?) {
+    override fun addOrUpdate(categories: List<Category?>?) {
         if (categories == null) return
         val db = writableDatabase
         val sql = "INSERT OR REPLACE INTO " + TABLE_CATEGORIES + " VALUES (?,?,?);"
@@ -39,7 +39,7 @@ class DBCategoriesHelper(context: Context?) : DBHelper(context) {
         }
     }
 
-    fun addOrUpdate(c: Category?) {
+    override fun addOrUpdate(c: Category?) {
         addOrUpdate(object : ArrayList<Category?>() {
             init {
                 add(c)

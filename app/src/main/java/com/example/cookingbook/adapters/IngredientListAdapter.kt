@@ -2,6 +2,9 @@ package com.example.cookingbook.adapters
 
 
 import android.R
+import android.R.*
+import android.R.id.*
+import android.R.layout.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +61,7 @@ class IngredientListAdapter(
         return ingredients[position]
     }
 
-    internal inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var tvCaption: TextView
         var btnRemove: ImageButton

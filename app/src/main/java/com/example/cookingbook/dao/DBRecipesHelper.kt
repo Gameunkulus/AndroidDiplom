@@ -1,6 +1,7 @@
 package com.example.cookingbook.dao
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.database.DatabaseUtils
@@ -8,11 +9,12 @@ import android.database.sqlite.SQLiteDatabase
 import android.text.TextUtils
 import android.util.Log
 import androidx.core.content.PackageManagerCompat
-import com.cookbook.pojo.Recipe
+import com.example.cookingbook.pojo.Recipe
 
 
 open class DBRecipesHelper(context: Context?) : DBHelper(context) {
-    fun addOrUpdate(recipes: List<Recipe?>?) {
+    @SuppressLint("RestrictedApi")
+    override fun addOrUpdate(recipes: List<Recipe>) {
         if (recipes == null) return
         val db: SQLiteDatabase = getWritableDatabase()
         val sql = "INSERT OR REPLACE INTO " + TABLE_RECIPES.toString() + " VALUES (?,?,?,?,?,?);"
@@ -21,12 +23,14 @@ open class DBRecipesHelper(context: Context?) : DBHelper(context) {
             db.beginTransaction()
             for (r in recipes) {
                 statement.clearBindings()
-                statement.bindLong(1, r.id)
-                statement.bindString(2, r.name)
-                statement.bindLong(3, r.cookingTime)
-                statement.bindLong(4, r.categoryId)
-                bindBitmapOrNull(statement, 5, r.icon)
-                statement.bindString(6, r.instruction)
+                if (r != null) {
+                    statement.bindLong(1, r.id)
+                    statement.bindString(2, r.name)
+                    statement.bindLong(3, r.cookingTime.toLong())
+                    statement.bindLong(4, r.categoryId)
+                    bindBitmapOrNull(statement, 5, r.icon)
+                    statement.bindString(6, r.instruction)
+                }
                 statement.execute()
             }
             db.setTransactionSuccessful()
@@ -60,6 +64,7 @@ open class DBRecipesHelper(context: Context?) : DBHelper(context) {
             return DatabaseUtils.queryNumEntries(db, TABLE_RECIPES)
         }
 
+    @SuppressLint("RestrictedApi")
     fun getById(recipeId: Long): Recipe? {
         if (recipeId < 0) return null
         val db: SQLiteDatabase = getReadableDatabase()
@@ -107,6 +112,7 @@ open class DBRecipesHelper(context: Context?) : DBHelper(context) {
         })
     }
 
+    @SuppressLint("RestrictedApi", "Range")
     protected fun bindRecipes(c: Cursor, recipes: ArrayList<Recipe>) {
         try {
             if (c.moveToFirst()) {

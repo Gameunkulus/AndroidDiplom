@@ -1,5 +1,6 @@
 package com.example.cookingbook.dao
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
@@ -19,6 +20,7 @@ class DBShopListHelper(context: Context?) : DBHelper(context) {
             return lines
         }
 
+    @SuppressLint("Range", "RestrictedApi")
     private fun bindLines(c: Cursor, lines: ArrayList<String>) {
         try {
             if (c.moveToFirst()) {
